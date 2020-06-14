@@ -1,0 +1,9 @@
+{
+  "projects": [
+    {
+      "name": "my-gcp-project",
+      "subscriptions": ["test-topic"],
+      "topics": ["test-topic"]
+    }
+  ]
+}
