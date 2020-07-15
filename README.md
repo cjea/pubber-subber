@@ -21,7 +21,7 @@ The config is a JSON object with `projects` referring to an array of GCP project
 
 Copy GCP service account credentials into `secret/creds.json`.
 
-Run the
+Run it:
 
 ```bash
 # Run pubber-subber in one terminal
