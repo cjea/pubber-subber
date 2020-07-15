@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Pubber Subber](#pubber-subber)
   - [Configuration](#configuration)
     - [Projects](#projects)
@@ -13,6 +12,8 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Pubber Subber
+
+Publish and subscribe to PubSub messages over HTTP.
 
 ## Configuration
 
@@ -50,10 +51,15 @@ Variable | Default
 
 ### Run
 
-1.  Run pubber-subber:
+1.  Run pubber-subber locally:
 
 ```bash
-$ make run
+# Run locally
+$ make start
+# Or via docker
+$ make docker
+# Or build image locally and run
+$ make docker-local
 ```
 
 2. In another terminal, listen for HTTP requests on `RECEIVE_ENDPOINT` (defaults to localhost:8081):
