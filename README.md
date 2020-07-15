@@ -1,10 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Pubber Subber](#pubber-subber)
+  - [Configuration](#configuration)
+    - [Projects](#projects)
+    - [Service Account](#service-account)
+  - [Local Dev](#local-dev)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Pubber Subber
 
-## Use
+## Configuration
 
-Create the desired GCP PubSub topics and subscriptions and enter them into `config.json`.
+### Projects
 
-The config is a JSON object with `projects` referring to an array of GCP projects. Example:
+Create the desired PubSub topics and subscriptions in GCP. Enter them into `config.json` in the project's root directory. That file stores a JSON object with the following keys:
 
 ```shell
 # config.json
@@ -19,9 +31,11 @@ The config is a JSON object with `projects` referring to an array of GCP project
 }
 ```
 
+### Service Account
+
 Copy GCP service account credentials into `secret/creds.json`.
 
-Run it:
+## Local Dev
 
 ```bash
 # Run pubber-subber in one terminal
