@@ -13,7 +13,7 @@
 
 # Pubber Subber
 
-Publish and subscribe to PubSub messages over HTTP.
+HTTP proxy for publishing and subscribing to PubSub messages
 
 ## Configuration
 
