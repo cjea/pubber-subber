@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cjea/pubber-subber/src/config"
+	"github.com/cjea/pubber-subber/src/pubsub/config"
 	pubsub "github.com/cjea/pubber-subber/src/pubsub/gcp"
 
 	"github.com/valyala/fasthttp"
@@ -18,11 +18,13 @@ func deliverAndAck(ctx context.Context, m *pubsub.Message) {
 	if endpoint == "" {
 		panic("Must set RECEIVE_ENDPOINT to subscribe to topics.")
 	}
+	fmt.Println("Posting message to " + endpoint)
 	err := _post(endpoint, m.Data)
 	if err != nil {
-		fmt.Println("Something bad happened :(")
+		fmt.Println(err.Error())
 		return
 	}
+	fmt.Println("Post success!")
 	m.Ack()
 	fmt.Printf("Acked a message %q :)\n", m.ID)
 }
