@@ -7,6 +7,8 @@
     - [Projects](#projects)
     - [Service Account](#service-account)
   - [Local Dev](#local-dev)
+    - [Environment](#environment)
+    - [Run](#run)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -37,10 +39,26 @@ Copy GCP service account credentials into `secret/creds.json`.
 
 ## Local Dev
 
+### Environment
+
+Three environment variables are required:
+Variable | Default
+--------|---------
+`GOOGLE_APPLICATION_CREDENTIALS` | `$PWD/secret/creds.json`
+`CONFIG_PATH` | `$PWD/config.json`
+`RECEIVE_ENDPOINT` | `http://host.docker.internal:8081`
+
+### Run
+
+1.  Run pubber-subber:
+
 ```bash
-# Run pubber-subber in one terminal
 $ make run
-# In another terminal, run a server to act as a subscriber
+```
+
+2. In another terminal, listen for HTTP requests on `RECEIVE_ENDPOINT` (defaults to localhost:8081):
+
+```bash
 $ node <<< '
 let http = require("http"); let port = 8081;
 console.log("listening on", port)
@@ -51,8 +69,11 @@ http.createServer((req, res) => {
   req.on("end", () => { console.log(str); res.end("done") })
 }).listen(port)
 '
-)
-# Publish a PubSub message and watch it get passed to your server
+```
+
+3. Publish a PubSub message to pubber-subber, and watch it get passed to your server:
+
+```bash
 $  curl -X POST http://localhost:8080/publish/my-project/topic1 -d '
 {
   "greeting": "hello from pubsub!"

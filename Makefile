@@ -1,3 +1,7 @@
+GOOGLE_APPLICATION_CREDENTIALS ?= $(PWD)/secret/creds.json
+CONFIG_PATH ?= $(PWD)/config.json
+RECEIVE_ENDPOINT ?= http://host.docker.internal:8081
+
 start:
 	@echo Find the logs at "docker logs --follow pubber-subber"
 	docker run -d -p 8080:80 --name=pubber-subber kennethreitz/httpbin
@@ -13,11 +17,11 @@ run:
 	@echo "** Sending subscription events to localhost:8081 **"
 	@echo
 	@docker run --rm -it -p 8080:30980 --name=pubber-subber \
-		-v $(PWD)/secret/creds.json:/app/creds.json \
+		-v $(GOOGLE_APPLICATION_CREDENTIALS):/app/creds.json \
 		-e GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json \
-		-v $(PWD)/config.json:/app/config.json \
+		-v $(CONFIG_PATH):/app/config.json \
 		-e CONFIG_PATH=/app/config.json \
-		-e RECEIVE_ENDPOINT=http://host.docker.internal:8081 \
+		-e RECEIVE_ENDPOINT=$(RECEIVE_ENDPOINT) \
  \
 		cjea/pubber-subber:latest
 
@@ -31,10 +35,10 @@ run-local: build
 	@echo "** Sending subscription events to localhost:8081 **"
 	@echo
 	docker run --rm -it -p 8080:30980 --name=pubber-subber \
-		-v $(PWD)/secret/creds.json:/app/creds.json \
+		-v $(GOOGLE_APPLICATION_CREDENTIALS):/app/creds.json \
 		-e GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json \
-		-v $(PWD)/config.json:/app/config.json \
+		-v $(CONFIG_PATH):/app/config.json \
 		-e CONFIG_PATH=/app/config.json \
-		-e RECEIVE_ENDPOINT=http://host.docker.internal:8081 \
+		-e RECEIVE_ENDPOINT=$(RECEIVE_ENDPOINT) \
  \
 		local-registry/pubber-subber
